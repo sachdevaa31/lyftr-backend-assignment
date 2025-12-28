@@ -90,4 +90,43 @@ All configuration is provided via `docker-compose.yml`.
 ## 6️⃣ HMAC Signature Verification
 
 Webhook signatures are verified using:
+- hex(HMAC_SHA256(secret=WEBHOOK_SECRET, message=raw_request_body))
 
+
+- Signature is computed on **raw request body bytes**
+- **Constant-time comparison** is used to prevent timing attacks
+- Invalid or missing signatures are rejected with **HTTP 401**
+
+---
+
+## 7️⃣ Idempotency
+
+- `message_id` is defined as the **primary key** in the SQLite database
+- Duplicate webhook calls with the same `message_id` do not insert new rows
+- Duplicate requests still return **HTTP 200** with:
+
+```json
+{ "status": "ok" }
+```
+---
+
+## 8️⃣ Observability
+
+- Structured **JSON logs** (one JSON object per request)
+- Prometheus metrics for:
+  - HTTP requests
+  - Webhook outcomes
+  - Request latency
+- Health probes suitable for container orchestration
+
+---
+
+## 9️⃣ Design Decisions
+
+- SQLite chosen for **simplicity and portability**
+- Raw SQL used for **deterministic querying and aggregation**
+- Docker Compose used for **local container orchestration**
+- FastAPI chosen for **performance, async support, and built-in validation**
+
+
+---
