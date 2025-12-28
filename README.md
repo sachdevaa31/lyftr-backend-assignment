@@ -32,3 +32,8 @@ The service is fully containerized using Docker Compose and follows 12-factor ap
 ```bash
 make up
 ```
+
+## 3️⃣ INFO
+The API will be available at: http://localhost:8000 
+Stop the service : make down 
+View logs : make logs
