@@ -31,5 +31,4 @@ The service is fully containerized using Docker Compose and follows 12-factor ap
 ### Start the service
 ```bash
 make up
-
-
+```
