@@ -46,6 +46,7 @@ make logs
 
 
 
+## 1️⃣ Overview
 ## 4️⃣ Configuration (Environment Variables)
 
 The application is configured using environment variables:
